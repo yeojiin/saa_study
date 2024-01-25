@@ -340,7 +340,6 @@
 - Athena에서 Amazon S3의 쿼리 결과 위치를 설정해 저장할 S3 버킷을 선택할 수 있음
 - 다른 구문을 실행
 - Athena를 사용해서 Amazon S3에서  로그들을 쿼리하는 방법이 있음
-
 ### 사이트 간 VPN, 가상 사설 Gateway 및 고객 Gateway
 - 특정 구조가 있는 기업 데이터 센터를 AWS와 비공개로 연결하려면 기업은 고객 게이트웨이를 VPC는 VPN 게이트웨 필요
 - 공용 인터넷을 통해 사설 Site-to-Site VPN을 연결
