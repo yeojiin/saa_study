@@ -388,7 +388,7 @@
 	- 규칙은 AWS 람다나 SNS 토픽 같이 EventBridge가 타깃화할 수 있는 모든 걸 타깃화할 수 있음
 - GuardDuty는 암호화폐 공격을 방어하기 위한 좋은 도구, 전문적인 탐지 기능이 제공됨
 	- 모든 입력 데이터를 분석하는 방법을 알고, 암호화폐 공격이 있는지 확인하게 됨
-- GuardDuty에는 몇 가지 입력 데이터가 있고, VPC Flow Logs, CloudTrail Logs, DNS Logs 등 모든 게 GuardDuty로 들어가게 됨
+- GuardDuty에는 몇 가지 입력 데이터가 있고 <u>VPC Flow Logs, CloudTrail Logs, DNS Logs</u> 등 모든 게 GuardDuty로 들어가게 됨
 	- S3 로그, EBS 볼륨, 람다 네트워크 활동, RDS 및 Aurora 로그인 활동, EKS 감사 로그나 런타임 모니터링 등 활성화할 수 있는 몇 가지 옵션 기능도 있음. 이로부터 GuardDuty는 탐지 결과를 생성할 수 있음
 - 탐지가 되면 Amazon EventBridge에서 이벤트가 생성되고 EventBridge로부터 규칙을 이용해서 예를 들면 람다 함수라든지 SNS 알림 전송 같은 자동화를 트리거할 수 있음
 ### Amazon Inspector
