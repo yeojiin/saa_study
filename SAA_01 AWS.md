@@ -5,7 +5,7 @@
 3. 가능한 서비스 - 제공하는 서비스가 다름
 4. 요금
 
-가용 영역은 보통 리전마다 3개씩 존재 
+가용 영역은 보통 리전마다 3개씩 존재
 obsidian://open?vault=Obsidian%20Vault&file=image%2FPasted%20image%2020231023230702.png
 ap-southeast-2a에 문제가 생긴다고 해도 b, c 재난 복구 가능
 
