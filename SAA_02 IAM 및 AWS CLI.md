@@ -2,8 +2,6 @@
 - Route53으로 들어갈 경우 리전이 글로벌
 - EC2로 들어가면 메인에서 선택한 리전으로(서울)로 선택되는데 같은 리전을 유지해야함
 ### IAM: Users & Groups
-<details open>
-<summary> </summary>
 IAM:  identity and Access Management -> 계정 생성 시 사용 됨
 root: root 계정은 기본으로 생성됨
 User: 
@@ -13,9 +11,8 @@ User:
 - 사용자는 여러 그룹에 동시에 속할 수 있음
 - 그룹에는 기능 권한을 부여할 수 있음
 - json으로 스크립트를 작성해 권한을 부여할 수 있음
-- 최소 권한의 원칙
+ 최소 권한의 원칙
 group: 하나의 그룹은 다른 사용자 그룹에 포함될 수 없음
-</details>
 	
 ### IAM 사용자 생성
 - 글로벌로 지정됨
