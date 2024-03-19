@@ -1,47 +1,46 @@
 ### AWS Well-Architected Framework 와 Well-Architected Tool
-- - AWS Well-Architected 프레임워는 AWS에서 좋은 애플리케이션을 실행하는 도구이자 프레임워크
+- AWS Well-Architected 프레임워는 AWS에서 좋은 애플리케이션을 실행하는 도구이자 프레임워크
 - Well-Architected 프레임워크를 사용해서 아키텍처를 모범 사례에 맞게 만들 수 있음
 - 필요 용량을 추측하지 말고 가능한 오토 스케일링을 사용
 - 프로덕션 규모에서 시스템을 테스트
-- AWS를 사용하게 되면 대규모 테스트와 인프라를 빠르게 수행하더라도 1시간 후에 종료할 수 있음
-- 그러니 프로덕션 규모에서 테스트하는 게 맞음
+	- AWS를 사용하게 되면 대규모 테스트와 인프라를 빠르게 수행하더라도 1시간 후에 종료할 수 있음
+	- 따라서 테스트는 프로덕션 규모에서 진행하는게 좋음
 - 자동화를 사용하여 아키텍처 실험을 쉽게 만들어야 함
-- CloudFormation 템플릿이 있다면 여러 환경에 쉽게 배포해서 실험할 수 있음
+	- CloudFormation 템플릿이 있다면 여러 환경에 쉽게 배포해서 실험할 수 있음
 - EC2 인스턴스 및 로드 밸런서로 시작하여 API Gateway와 Lambda 같은 서버리스 아키텍처로 발전해야 해야 함
-- 변화하는 요구 사항에 맞춘 설계를 해야 함
+	- 변화하는 요구 사항에 맞춘 설계를 해야 함
 - 데이터로 아키텍처를 구동
-- 데이터는 매우 중요해서 옮겨가며 보관해야 함
+	- 데이터는 매우 중요해서 옮겨가며 보관해야 함
 - 마지막으로 GameDay를 통해 연습하시고 발전
 - 아키텍처와 프로덕션을 하면서 시험하고 개선점을 찾아야 함
-- 예를 들어 아키텍처에 많은 부담을 주는 애플리케이션을 반짝 세일 기간에 대입해 시뮬레이션해 보는 것
+	- 예를 들어 아키텍처에 많은 부담을 주는 애플리케이션을 반짝 세일 기간에 대입해 시뮬레이션해 보는 것
 - Well-Architected 프레임워크에는 6개 원칙이
-	- 운영 우수성
-	- 보안
-	- 안정성
-	- 성능 효율성
-	- 비용 최적화 
-	- 지속 ​​가능성
+	- 운영 우수성(Operational Excellence)
+	- 보안(Security)
+	- 안정성(Reliability)
+	- 성능 효율성(Performance Efficiency)
+	- 비용 최적화(Cost Optimization)
+	- 지속 ​​가능성(Sustainablility)
 - AWS Well-Architected Tool은 프레임워크 도구이며 정의한 6가지 원칙으로 아키텍처를 검토
-- 앞의 6가지 원칙으로 검토하고 대시보드에서 결과를 볼 수 있음
-- Well-Architected Tool의 UI에 있는데 Demo Workload가 프로덕션 애플리케이션
-- Description도 작성하죠 '프로덕션 애플리케이션'
-- Review owner는 John@example.com로 하고 Production을 선택하고, 그리고 선택한 두 개의 AWS 리전에서 작동
-- Non-AWS 리전과 계정 ID 옵션 등이 있는데 인프라와 아키텍처에 대한 많은 정보를 지정할 수 있음
-- Next를 누르고 Apply lenses에서 렌즈는 아키텍처에 적용하는 질문의 같은 것
-- Well-Architected Framework 렌즈를 선택
-- Well-Architected Framework에 관련된 질문
-- Define workload를 누르고 Start reviewing으로 시작
-- AWS Well-Architected Framework
-- 6개 원칙에 따라 아주 많은 질문
-- 운영 우수성에 관한 질문 11개 보안에 대한 질문 10개 지속 가능성에 대한 질문 6
-- 우선순위를 어떻게 결정하겠습니까?
-- 거버넌스 요구 사항을 고려하고 외부 고객 요구 및 절충안을 고려
-- 다양한 원칙에 대해 질문에 답할 수 있는데
-- 세 가지 고위험이 있음
-- 여기 있는 렌즈를 클릭하면 해당 렌즈에 대한 개요와 위험을 볼 수 있음
-- 위험에 대한 권장 사항이 나와 있음
-- 내부 고객 요구를 고려해야 하고 위협 환경 등을 고려
-- 도구가 피드백을 제공하여 추진일정을 잡고 개선 사항 등을 알 수 있음
+	- 앞의 6가지 원칙으로 검토하고 대시보드에서 결과를 볼 수 있음
+- Well-Architected Tool의 UI에 있는데 Demo Workload가 프로덕션 애플리케이션이라고 가정
+	- Description은 '프로덕션 애플리케이션'라고 작성
+	- Review owner는 John@example.com로 하고 Production을 선택하고, 그리고 선택한 두 개의 AWS 리전에서 작동
+	- Non-AWS 리전과 계정 ID 옵션 등이 있는데 인프라와 아키텍처에 대한 많은 정보를 지정할 수 있음
+	- Next를 누르고 Apply lenses에서 렌즈는 아키텍처에 적용하는 질문의 같은 것
+	- Well-Architected Framework 렌즈를 선택
+	- Well-Architected Framework에 관련된 질문
+	- Define workload를 누르고 Start reviewing으로 시작
+	- 검토에 적용도리 렌즈는 AWS Well-Architected Framework 선택
+	- 6개 원칙에 따라 아주 많은 질문
+		- 운영 우수성에 관한 질문 11개 보안에 대한 질문 10개 지속 가능성에 대한 질문 6
+	- 우선순위를 어떻게 결정하겠습니까?
+		- 거버넌스 요구 사항을 고려하고 외부 고객 요구 및 절충안을 고려
+	- 다양한 원칙에 대해 질문에 답할 수 있는데
+	- 세 가지 고위험이 있음
+		- 위험에 대한 권장 사항이 나와 있음
+		- 내부 고객 요구를 고려해야 하고 위협 환경 등을 고려
+	- 도구가 피드백을 제공하여 추진일정을 잡고 개선 사항 등을 알 수 있음
 - 피드백을 거쳐 여러분의 프레임워크가 잘 작동된다는 확신이 들면 애플리케이션의 프로덕션 준비가 되고 워크로드가 규정을 준수해 제대로 설계되었다는 뜻
 ### AWS Trusted Advisor 개요 + 실습
 - Trusted Advisor는 그냥 곧바로 실행되는 서비스
@@ -49,20 +48,29 @@
 - Trust Advisor는 많은 검사를 실행하고 검사에 합격했는지 아닌지를 알려줌
 - 예를 들면 Amazon EBS 퍼블릭 스냅샷은 발견 결과가 0 -> 검사 합격
 - Trust Advisor는 여러분의 계정을 분석하고 5가지 범주에 대한 권고를 제공
-- 5가지 범주는 비용 최적화, 성능, 보안, 고장 내성, 서비스 한도
-- Basic 및 Developer 서포트 플랜을 이용한다면 기본값으로 7가지 핵심 검사가 제공되는데 역시 Basic과 Developer 서포트 플랜에 제공되는 7가지 핵심 검사를 중요
-- S3 버킷 권한을 검사해서 버킷이 퍼블릭인지 확인하고, 보안 그룹을 검사해서 예를 들어 SSH 같이 제한되지 않은 포트가 있는지 확인
-- IAM 사용을 검사해서 계정에 적어도 IAM 사용자가 한 명 있는지 확인하고, 루트 계정의 MFA를 검사해서 우리가 루트 계정에 멀티팩터 인증을 활성화했는지 확인해
-- EBS 퍼블릭 스냅샷이 있는지 검사하고 RDS 퍼블릭 스냅샷이 있는지 검사
-- 마지막으로 AWS의 서비스 한도를 확인하죠, 이게 7가지 핵심 검사
-- 이건 Basic과 Developer 서포트 플랜에 제공
+- `5가지 범주를 권고`
+	- 비용 최적화(Cost Optimization) 
+	- 성능(Performance)
+	- 보안(Security)
+	- 고장 내성(Fail tolerance) 
+	- 서비스 한도(Service Limits)
+- 서포트 플랜
+	- Basic 및 Developer 서포트 플랜을 이용한다면 기본값으로 7가지 핵심 검사가 제공
+		- S3 Bucket Permissions: S3 버킷 권한을 검사해서 버킷이 퍼블릭인지 확인
+		- Security Groups: 보안 그룹을 검사 
+			- SSH 같이 제한되지 않은 포트가 있는지 확인
+		- IAM Use: IAM 사용을 검사
+			- 계정에 적어도 IAM 사용자가 한 명 있는지 확인하고,
+		- MFA on Root Account: 루트 계정의 MFA를 검사해서 우리가 루트 계정에 멀티팩터 인증을 활성화했는지 확인
+		- EBS 퍼블릭 스냅샷이 있는지 검사
+		- RDS 퍼블릭 스냅샷이 있는지 검사
+		- Service Limit: AWS의 서비스 한도를 확인
 - Trusted Advisor에 관해  전체 검사도 있음
-- Business와 Enterprise 서포트 플랜에 제공
-- 앞의  5가지 범주의 검사를 모두 제공
-- 한도에 도달했을 때 CloudWatch 알람을 설정할 수 있음
-- AWS Support API를 이용해서 프로그램적으로 액세스할 수 있다는 점
-- Basic과 Developer 서포트 플랜은 그 API에 액세스할 수 없음
-- Trusted Advisor를 콘솔에서 살펴볼까?
+	- Business와 Enterprise 서포트 플랜에 제공
+	- 앞의  5가지 범주의 검사를 모두 제공
+	- 한도에 도달했을 때 CloudWatch 알람을 설정할 수 있음
+	- <u>AWS Support API를 이용해서 프로그램적으로 액세스할 수 있음</u>
+	- Basic과 Developer 서포트 플랜은 그 API에 액세스할 수 없음
 ### 아키텍처의 예 - AWS 공인 솔루션스 아키텍트 어소시에이트
 - 아키텍처를 더 보고 싶다면 AWS 웹 사이트에 두 개의 링크가 있음
 - AWS 아키텍처 센터 -> aws.com/architecture 
@@ -75,4 +83,3 @@
 - AWS 비디오 온디맨드와 서버리스 이미지 핸들러
 - 비디오 온디맨드는 무슨 일을 할까?
 - 배포 가이드가 보입니다 다운로드를 할 수 있고 AWS 콘솔에서 CloudFormation으로 솔루션을 실행할 수 있음
-### 
