@@ -2,23 +2,23 @@
 - Domain name System
 - 도메인으로 접속하면 IP를 받아서 사이트 접속
 - 계층적 이름 구조가 있음
-    - .com
-    - www.example.com
-    - api.example.com 등등
+	- .com
+	- www.example.com
+	- api.example.com 등등
 - 도메인 레지스트라(registrar): Route53, GoDaddy 등등 도메인 이름을 등록하는 곳
 - zone file: 모든 DNS 레코드 포함, 호스트 이름과 IP 또는 주소를 일치시키는 방법
 - Name Server: DNS 쿼리를 실제로 해결하는 서버
 - FQDN(전체 주소 도메인): http://api.www.example.com.
-    - 마지막 . 을 루트라고 함
-    - Top Level Domain(TLD): 최상위 도메인, .com, .us, .in .gov, .org 등등
-    - Second Level Domain(SLD): amazon.com, google.com, example.com
-    - 서브 도메인: www.example.com 까지 서브 도메인
-    - 도메인 네임: api.www.example.com
-    - 프로토콜: http
+	- 마지막 . 을 루트라고 함
+	- Top Level Domain(TLD): 최상위 도메인, .com, .us, .in .gov, .org 등등
+	- Second Level Domain(SLD): amazon.com, google.com, example.com
+	- 서브 도메인: www.example.com 까지 서브 도메인
+	- 도메인 네임: api.www.example.com
+	- 프로토콜: http
 ### DNS 작동 원리
 - 공인 IP 9.10.11.12가 있다고 가정
--  도메인 이름인 example.com을 DNS용 서버를 등록해야 함
-- web 브라우저에서 url 요청
+- 도메인 이름인 example.com을 DNS용 서버를 등록해야 함
+- web 브라우저에서 url 요청 
 - 로컬 DNS 서버에서 해당 도메인 정보를 확인 후
 - 로컬 DNS 서버가 해당 쿼리를 모른다면 ICANN에 의해 관리된 DNS 서버의 루트에 물어봄
 - 루트 DNS 서버는 알지 못하지만  .com(NS - 이름 서버)을 알고 있기 때문에 NS 레코드로 공인 IP 1.2.3.4로 가보라고 알려줌
@@ -26,151 +26,151 @@
 - DNS 서버는 example.com이 5.6.7.8에 있다고 알려줌
 - 이후 로컬 DNS 서버는 최종 서버로 서브 도메인의 DNS 서버. 이는 도메인 이름 레지스트라에 의해 관리되는 서버임 - ex Route53등
 - DNS 서버는 example.com에 대한 항목이 있어 A레코드임을 식별하고 IP 9.10.11.12를 리턴
-- 정리하자만 로컬 DNS server -> ICANN에 의해 관리되는 Root DNS Server 물어보고 -> IANA에 의해 관리되는 TLD DNS Server에서 .com 리턴 -> registrar에 관리되는 SLD DNS Server에서 example.com 리턴
-  ![[Pasted image 20231102111712.png]]
+- 정리하자만 Local DNS server -> ICANN에 의해 관리되는 Root DNS Server 물어보고 -> IANA에 의해 관리되는 TLD DNS Server에서 .com 리턴 -> registrar에 관리되는 SLD DNS Server에서 example.com 리턴
+![[Pasted image 20231102111712.png]]
 ### Route 53
 - 고가용성, 확장성을 갖춘 DNS
 - 권한이 있음 -> DNS 레코드를 업데이트 할 수 있음
-- SLA가용성을 제공하는 서비스
-- route53 역시 도메인 이름 레지스트라로 도메인 이름을 example.com으로 등록
+- SLA 가용성을 제공하는 서비스
+- Route53 역시 도메인 이름 레지스트라로 도메인 이름을 example.com으로 등록
 - 도메인 레코드
-    - subdomain Name: example.com
-    - Record Type: A or AAAA
-    - Value: 123.456.789.123
-    - Route Policy: Route 53이 쿼리에 응답하는 방식
-    - TTL(time to live): DNS리졸버(resolver)가 레코드에 캐싱되는 시간
+	- sub domain Name: example.com
+	- Record Type: A or AAAA
+	- Value: 123.456.789.123
+	- Route Policy: Route 53이 쿼리에 응답하는 방식
+	- TTL(time to live): DNS리졸버(resolver)가 레코드에 캐싱되는 시간
 - 지원하는 DNS 레코드 타입
-    - `A/ AAA / CNAME / NS` -> 중요
-    - A: 호스트 이름과 IPv4 IP를 매핑
-        - example.com 은 1.2.3.4로 연결
-    - AAAA: 호스트 이름을 IPv6와 매핑
-    - CNAME: 호스트 이름을 다른 호스트 이름과 매핑, 호스트 이름은 A나 AAAA 레코드가 될 수 있음
-        - route53에서 DNS 이름 공간 또는 Zone Apex의 `상위 노드에 대한 CNAMES를 생성할 수 없음`
-        -  example.com에 만들 수 없지만 www.example.com에 만들 수 있음
-    - NS: 호스팅 존의 이름 서버, 서버의 DNS 이름 또는 IP 주소로 호스팅 존에 대한 DNS 쿼리에 응답 가능, 트래픽이 도메인으로 라우팅 되는 방식을 제어
-    - CAA / DS / MX / NAPTR / PTR / SOA / TXT /SPF / SRV -> 고급
+	- `A/ AAAA / CNAME / NS` -> 중요
+	- A: 호스트 이름과 IPv4 IP를 매핑 
+		- example.com 은 1.2.3.4로 연결
+	- AAAA: 호스트 이름을 IPv6와 매핑
+	- CNAME: 호스트 이름을 다른 호스트 이름과 매핑, 호스트 이름은 A나 AAAA 레코드가 될 수 있음
+		- route53에서 DNS 이름 공간 또는 Zone Apex의 `상위 노드에 대한 CNAMES를 생성할 수 없음`
+		-  example.com에 만들 수 없지만 www.example.com에 만들 수 있음 
+	- NS: 호스팅 존의 이름 서버, 서버의 DNS 이름 또는 IP 주소로 호스팅 존에 대한 DNS 쿼리에 응답 가능, 트래픽이 도메인으로 라우팅 되는 방식을 제어
+	- CAA / DS / MX / NAPTR / PTR / SOA / TXT /SPF / SRV -> 고급
 - 호스팅 존
-    - 레코드의 컨테이너로 도메인과 서브도메인으로 가는 트래픽의 라우팅 방식을 정의
-    - 종류
-        - 퍼블릭 호스팅 존
-            - 퍼블릭 도메인 이름을 살 때마다 만들 수 있음
-            - mypublicdomain.com 같은
-            - 퍼블릭 존은 쿼리에 도메인 이름 application1.mypublicdomainname.com의 IP가 무엇인지 알 수 있음
-        - 프라이빗 호스팅 존
-            - 공개되지 않은 도메인 이름을 지원
-            - VPC만이 URL을 resolve 할 수 있음
-            - application1.company.internal 같은 것
-            - 기업에서 회사 네트워크 내에서만 접근할 수 있도록 하는 URL 등
+	- 레코드의 컨테이너로 도메인과 서브도메인으로 가는 트래픽의 라우팅 방식을 정의
+	- 종류
+		- 퍼블릭 호스팅 존
+			- 퍼블릭 도메인 이름을 살 때마다 만들 수 있음
+			- mypublicdomain.com 같은
+			- 퍼블릭 존은 쿼리에 도메인 이름 application1.mypublicdomainname.com의 IP가 무엇인지 알 수 있음
+		- 프라이빗 호스팅 존
+			- 공개되지 않은 도메인 이름을 지원
+			- VPC만이 URL을 resolve 할 수 있음
+			- application1.company.internal 같은 것
+			- 기업에서 회사 네트워크 내에서만 접근할 수 있도록 하는 URL 등
 - Route53은 무료가 아님
 ### TTL
-- 설정한 시간동안 동안 캐시릉 가지고 있다면 Route 53으로 요청하는 빈도가 줄어들음
+- 설정한 시간동안 동안 캐시를 가지고 있다면 Route 53으로 요청하는 빈도가 줄어들음
 - 캐시 설정한 시간 동안 다시 요청하지 않기 때문
 - 캐시가 유지되는 동안에는 DNS 최종 IP를 변경해도 바로 반영되지 않을 수 있음
 - DNS가 어떤 고정 IP를 바라보는지 저장하는 캐시 생명 시간
 ### CNAME vs Alias(별칭)
 - CNAME: 호스트 이름이 다른 호스트 이름을 바라볼 수 있음
-    - app.mydomian.com -> blabla.anything.com을 바라보도록 할 수 있음
-    - **루트 도메인이 아닌 경우만 가능**
-        - somthing.mydomain.com은 가능하나 mydomain.com은 불가
-    - app.mydomain.com -> blabla.anything.com 바라보도록
+	- app.mydomian.com -> blabla.anything.com을 바라보도록 할 수 있음
+	- <u>루트 도메인이 아닌 경우만 가능</u>
+		- somthing.mydomain.com은 가능하나 mydomain.com은 불가
+	- app.mydomain.com -> blabla.anything.com 바라보도록
 - Alias:
-    - Route 53에 한정
-    - 호스트 명이 AWS 리소스를 바라볼 수 있음
-        - app.mydomain.com -> blabla.amazonaws.com 바라보도록
-    - **루트 도메인, 비루트 도메인 모두 가능**
-        - mydomain.com을 별칭으로 사용 해 AWS 리소스로 향하도록 할 수 있음
-    - 무료, 자체 상태 확인 가능
-    - CNAME과 달리 Zone Apex라는 DNS 네임스페이스의 상위 노드로 사용 될 수 있음
-        - example.com
-    - A/AAA만 가능 (IPv4, IPv6)
-    - **TTL은 사용 불가** -> route53에 의해 자동으로 설정됨
-    - 대상
-        - ELB
-        - CloudFront distribution(배포)
-        - API Gateway
-        - Elastic BeanStalk environments
-        - S3버킷은 안되지만 버킷들이 웹사이트로 활성화 될 시 S3 Websites 가능
-        - VPC Interface Endpoints
-        - Global Accelerator accelerator
-        - Route53 record in the same hosted zone
-        - **EC2의 DNS 이름은 별칭 레코드의 대상이 될 수 없음**
-    - route53에서 CNAME 선택 후 대상을 ALB DNS 도메인으로 선택하면 url을 통해 ALB로 보내고 이는 EC2로 연결됨
-    - IP를 직접 연결하면 alias를 사용하지 않은 A레코드. 다만, 인스턴스 재실행 시 계속 바뀔 수 있고 TTL에 의해 다른 인스턴스로 연결하는데 지연 시간이 발생할 수 있음
-    - Alias를 사용하면 로드밸런서로 바로 연결할 수 있음 -> 로드밸런서 유형을 선택하고, 로드밸런서의 별칭이 select 박스로 나옴
+	- Route 53에 한정
+	- 호스트 명이 AWS 리소스를 바라볼 수 있음
+		- app.mydomain.com -> blabla.amazonaws.com 바라보도록
+	- <u>루트 도메인, 비루트 도메인 모두 가능</u>
+		- mydomain.com을 별칭으로 사용 해 AWS 리소스로 향하도록 할 수 있음
+	- 무료, 자체 상태 확인 가능
+	- CNAME과 달리 Zone Apex라는 DNS 네임스페이스의 상위 노드로 사용 될 수 있음
+		- example.com
+	- A/AAA만 가능 (IPv4, IPv6)
+	- **TTL은 사용 불가** -> route53에 의해 자동으로 설정됨
+	- 대상
+		- ELB
+		- CloudFront distribution(배포)
+		- API Gateway
+		- Elastic BeanStalk environments
+		- S3버킷은 안되지만 버킷들이 웹사이트로 활성화 될 시 S3 Websites 가능
+		- VPC Interface Endpoints
+		- Global Accelerator accelerator
+		- Route53 record in the same hosted zone
+		- **EC2의 DNS 이름은 별칭 레코드의 대상이 될 수 없음**
+	- route53에서 CNAME 선택 후 대상을 ALB DNS 도메인으로 선택하면 url을 통해 ALB로 보내고 이는 EC2로 연결됨
+	- IP를 직접 연결하면 alias를 사용하지 않은 A레코드. 다만, 인스턴스 재실행 시 계속 바뀔 수 있고 TTL에 의해 다른 인스턴스로 연결하는데 지연 시간이 발생할 수 있음
+	- Alias를 사용하면 로드밸런서로 바로 연결할 수 있음 -> 로드밸런서 유형을 선택하고, 로드밸런서의 별칭이 select 박스로 나옴
 ### Route 53 정책
 - DNS관점의 라우팅
-    - DNS는 DNS 쿼리만 응답함, 트래픽은 DNS를 통과하지 않음
-    - DNS는 호스트 이름들을 클라이언트가 실제 사용 가능한 엔드 포인트로 변환하는 것을 도움
+	- DNS는 DNS 쿼리만 응답함, 트래픽은 DNS를 통과하지 않음
+	- DNS는 호스트 이름들을 클라이언트가 실제 사용 가능한 엔드 포인트로 변환하는 것을 도움
 - 정책
-    - 단순(simple)
-        - 트래픽을 단일 리소스로 보내는 것
-        - 도메인 -> IP 주소(A 레코드 주소)
-        - 클라이어트에서 다중 요청도 가능한데 이 경우 클라이언트는 무작위로 리턴된 것 중 하나의 IP를 선택함
-        - 별칭 레코드를 함께 사용하면 하나의 AWS 리소스만을 대상으로 지정할 수 있어 상태 확인은 불가
-    - 가중치 기반(Weighted)
-        - EC2가 가중치를 각각 할당 받아 확률 만큼 자주 조회 -> 트래픽 양을 가중치 별로 조정
-        - 합이 100이 아니어도 됨
-        - 서로 다른 지역들에 걸쳐 로드 밸런싱을 할 때나 적은 양의 트래픽을 보내 새 어플리케이션을 테스트하는 경우에 사용
-        - 만약 모든 가중치가 0이라면 모든 레코드가 각각 동일한 가중치를 갖게 됨
-    - 장애조치(failover)
-        - 상태 확인과 기본 레코드 연결이 필수
-        - 첫번째 EC2인스턴스가 상태 확인이 비정상이면 자동으로 route53은 2번째 EC2 인스턴스로 장애 조치해 결과를 보냄
-        - 장애가 난 인스턴스 헬스 체크 후 정상 인스턴스로 리턴
-        - 기본과 보조 2개만 설정할 수 있음
-    - 지연시간 기반(latency based)
-        - 유저가 가장 가까운 AWS로 붙는데 걸리는 시간을 기반으로 함
-        - 만약 유저가 독일에 있고 미국에 있는 리소스 지연 시간이 가장 짧다면 미국 리전으로 리다이렉팅 됨
-        - 상태 확인과 연결이 가능
-    - 지리적(geolocation)
-        - 사용자의 실제 위치를 기반으로 결정
-        - 일치하는 위치가 없는 경우 리본 레코드를 생성해야 함
-        - 콘텐츠 분산을 제한하고, 로드 밸런싱 등을 싱행하는 웹사이트 현지화 시 사용
-        - 상태 확인과 연결 가능
-        - 지리적 접근성
-            - 해당 정책으로 편향값을 사용해 특정 위치를 기반으로 리소스를 더 많은 트래픽을 이동하는 것
-            - 리소스 대상
-                - aws 리소스 -> 자동으로 라우팅 계산 가능
-                - 위도와 경도 지정
-            - 편향(Bias)이 없으면 가까운 리전으로
-            - 편향이 있으면 양수 편향값을 가진 리전으로 더 많은 사용자 범위가 넓어져 트래픽이 높아짐(가중치가 높아지는 느낌)
-    - 다중 값 응답
-        - 트래픽을 다중 리소스로 라우팅할 때 사용
-        - 다중 값 리턴해서 상태가 최종 상태를 바라봄
-        - 레코드 하나에 다중 A레코드를 매핑하고 최대 8개를 응답 받아 그 중 하나를 선택하는데 상태 확인을 하기 때문에 1~8개까지 받을 수 있음
-        - 최소와 최대 레코드 선택 기준이 있어서 선택한 대로 결정됨
-        - simple은 상태 확인이 안되기 때문에 다중 값 응답이 보다 안전
-        - 레코드는 인스턴스와 연결됨
-        - 조건이 여러개 일 때 우선순위가 있는 느낌
-    - IP기반 라우팅
-        - 사용자를 위한 CIDR목록을 Route53에 설정
-            - CIDR 블록이 1,2,3,4면 로케이션 1로 보내고
-            - CIDR 블록이 5,6,7,8면 로케이션 2로 보내고
-            - 하는 방식으로 설정 가능
-        - 특정 인터넷이 어떤 IP셋을 사용한다면 해당으로
+	- 단순(simple)
+		- 트래픽을 단일 리소스로 보내는 것
+		- 도메인 -> IP 주소(A 레코드 주소)
+		- 클라이어트에서 다중 요청도 가능한데 이 경우 클라이언트는 무작위로 리턴된 것 중 하나의 IP를 선택함
+		- 별칭 레코드를 함께 사용하면 하나의 AWS 리소스만을 대상으로 지정할 수 있어 상태 확인은 불가
+	- 가중치 기반(Weighted)
+		- EC2가 가중치를 각각 할당 받아 확률 만큼 자주 조회 -> 트래픽 양을 가중치 별로 조정
+		- 합이 100이 아니어도 됨
+		- 서로 다른 지역들에 걸쳐 로드 밸런싱을 할 때나 적은 양의 트래픽을 보내 새 어플리케이션을 테스트하는 경우에 사용
+		- 만약 모든 가중치가 0이라면 모든 레코드가 각각 동일한 가중치를 갖게 됨
+	- 장애조치(failover)
+		- 상태 확인과 기본 레코드 연결이 필수
+		- 첫번째 EC2인스턴스가 상태 확인이 비정상이면 자동으로 route53은 2번째 EC2 인스턴스로 장애 조치해 결과를 보냄
+		- 장애가 난 인스턴스 헬스 체크 후 정상 인스턴스로 리턴
+		- 기본과 보조 2개만 설정할 수 있음
+	- 지연시간 기반(latency based)
+		- 유저가 가장 가까운 AWS로 붙는데 걸리는 시간을 기반으로 함
+		- 만약 유저가 독일에 있고 미국에 있는 리소스 지연 시간이 가장 짧다면 미국 리전으로 리다이렉팅 됨
+		- 상태 확인과 연결이 가능
+	- 지리적(geolocation)
+		- 사용자의 실제 위치를 기반으로 결정
+		- 일치하는 위치가 없는 경우 기본 레코드를 생성해야 함
+		- 콘텐츠 분산을 제한하고, 로드 밸런싱 등을 실행하는 웹사이트 현지화 시 사용
+		- 상태 확인과 연결 가능
+		- 지리적 접근성
+			- 해당 정책으로 편향값을 사용해 특정 위치를 기반으로 리소스를 더 많은 트래픽을 이동하는 것
+			- 리소스 대상
+				- aws 리소스 -> 자동으로 라우팅 계산 가능
+				- 위도와 경도 지정
+			- 편향(Bias)이 없으면 가까운 리전으로
+			- 편향이 있으면 양수 편향값을 가진 리전으로 더 많은 사용자 범위가 넓어져 트래픽이 높아짐(가중치가 높아지는 느낌)
+	- 다중 값 응답
+		- 트래픽을 다중 리소스로 라우팅할 때 사용
+		- 다중 값 리턴해서 상태가 최종 상태를 바라봄
+		- 레코드 하나에 다중 A레코드를 매핑하고 최대 8개를 응답 받아 그 중 하나를 선택하는데 상태 확인을 하기 때문에 1~8개까지 받을 수 있음
+		- 최소와 최대 레코드 선택 기준이 있어서 선택한 대로 결정됨
+		- simple은 상태 확인이 안되기 때문에 다중 값 응답이 보다 안전
+		- 레코드는 인스턴스와 연결됨 
+		- 조건이 여러개 일 때 우선순위가 있는 느낌
+	- IP기반 라우팅
+		- 사용자를 위한 CIDR목록을 Route53에 설정
+			- CIDR 블록이 1,2,3,4면 로케이션 1로 보내고
+			- CIDR 블록이 5,6,7,8면 로케이션 2로 보내고
+			- 하는 방식으로 설정 가능
+		- 특정 인터넷이 어떤 IP셋을 사용한다면 해당으로 
 ### Route 53 Health Check
 - 상태 체크는 **퍼블릭 리소스** 가능
 - 종류
-    - 공용 엔드 포인트를 모니터링
-        - 어플리케이션, 서버, 다른 AWS 리소스의 상태 확인
-        - 간격 설정 가능
-        - 위치도 선택 가능
-        - 임계값 설정 가능
-        - 상태 확인은 로드 밸런서에게 2xx나 3xx 를 받아야 성공으로 간주
-    - 다른 상태 확인을 모니터링하는 상태 확인도 가능-> 계산된 상태 확인
-    - CloudWatch 경보의  상태를 모니터링할 수도 있음
+	- 공용 엔드 포인트를 모니터링
+		- 어플리케이션, 서버, 다른 AWS 리소스의 상태 확인
+		- 간격 설정 가능
+		- 위치도 선택 가능
+		- 임계값 설정 가능
+		- 상태 확인은 로드 밸런서에게 2xx나 3xx 를 받아야 성공으로 간주
+	- 다른 상태 확인을 모니터링하는 상태 확인도 가능-> 계산된 상태 확인
+	- CloudWatch 경보의  상태를 모니터링할 수도 있음
 - 여러개의 상태 확인 결과를 하나로 합칠 수도 있음
-    - 상위 헬스체크
-    - Or, AND, NOT 사용 가능
-    - 웹사이트 등에 이용
+	- 상위 헬스체크
+	- OR, AND, NOT 사용 가능
+	- 웹사이트 등에 이용
 - 개인 리소스 헬스 체크
-    - 개인 엔드포인트에 접근이 어려움 -> CloudWatch 지표를 만들어서 경보를 이용함
+	- 개인 엔드포인트에 접근이 어려움 -> CloudWatch 지표를 만들어서 경보를 이용함
 ### Domain Registar vs DNS Service
 - 도메인 이름 레지스트라를 통해 원하는 도메인 이름을 구매할 수 있음
 - 도메인 레지스트라: DNS 레코드를 관리할 수 있는 곳이 존재
 - 타사 도메인(GoDaddy 같은 것) -> 내 도메인 주소 사용했던 거 같은 방법
-    - GoDaddy에서 도메인을 등록하면 이름 서버 옵션이 생성됨
-        - NS로 약 4개정도의 옵션이 생성
-    - route53에서 원하는 도메인의 공용 호스팅 영역을 생성 후 호스팅 영역 상세의 오른쪽 부분에 NS를 찾음 -> route53의 NS를 타사 Godaddy NS에 붙여넣어 업데이트 해줘야 함
-    - 도메인을 해당 사이트에서 연결해줘야 함 -> Route 53의 기능은 사용할 수 있음
-    - 공용 호스팅 서버를 세팅 후 Route53 레지스트라에 업데이트 필요
+	 - GoDaddy에서 도메인을 등록하면 이름 서버 옵션이 생성됨
+		 - NS로 약 4개정도의 옵션이 생성
+	- route53에서 원하는 도메인의 공용 호스팅 영역을 생성 후 호스팅 영역 상세의 오른쪽 부분에 NS를 찾음 -> route53의 NS를 타사 Godaddy NS에 붙여넣어 업데이트 해줘야 함
+	 - 도메인을 해당 사이트에서 연결해줘야 함 -> Route 53의 기능은 사용할 수 있음
+	 - 공용 호스팅 서버를 세팅 후 Route53 레지스트라에 업데이트 필요
 
