@@ -1,6 +1,6 @@
 ### S3 생명 주기 규칙
 - 객체를 다른 스토리지 클래스 사이에서 옮길 수 있음
-- Standard -> Standard IA -> Intelligent Tiering -> One-Zone IA -> Glacier Instanct Retieval -> Glacier Flexible Retieval -> Glacier Deep Archive 로 옮길 수 있음
+- Standard -> Standard IA -> Intelligent Tiering -> One-Zone IA -> Glacier Instant Retrieval -> Glacier Flexible Retrieval -> Glacier Deep Archive 로 옮길 수 있음
 	- 상위는 하위에 포함된 모든 스토리지로 옮길 수 있음
 - `라이프 사이클 규칙`에 의해 자동으로 옮길 수 있음
 	- Transition Actions: 다른 스토리지 클래스로 이전하기 위해 객체를 설정함
@@ -23,9 +23,9 @@
 - 대량의 데이터 셋을 다른 계정과 공유할 때 유용
 - 요청자는 익명이어서는 안되기 때문에 AWS에서 인증을 받아야 함
 ### 이벤트 알림
-- use caes에 따라 이벤트 알림을 만들고 `SNS 토픽이나 SQS Queue, Lambda` 등을 통해 다른 액션까지 연계 가능
+- use caes에 따라 이벤트 알림을 만들고 `SNS 토픽, SQS Queue, Lambda` 등을 통해 다른 액션까지 연계 가능
 - IAM 권한이 필요함
-- SNS에 알림을 보내려면 SNS리소스 정책이 필요함, SQS는 SQS 리소스 정책이 필요함
+- SNS에 알림을 보내려면 SNS 리소스 정책이 필요함, SQS는 SQS 리소스 정책이 필요함
 - 이벤트는 Amazon EventBridge로 가기 때문에 규칙을 만들어 필터링해서 보낼 수도 있음
 	- 18가지의 기능을 호출할 수 있음
 	- Advenced filtering
@@ -40,7 +40,7 @@
 	- 멀티파트 업로드
 		- 5기가 넘는 파일은 무조건 사용해야함, 100mb 이상부터 사용 권장
 		- 업로드를 병렬화하기 때문에 전송 속도를 높여 대역폭을 최대화 할 수 있음
-		- 파일 하나를 여러 파트(chunk)로 나누고, *S3에 병렬로 업로드 후 업로드 완료 후 하나의 파일로 합침*
+		- 파일 하나를 여러 파트(chunk)로 나누고, <u>S3에 병렬로 업로드 후 업로드 완료 후 하나의 파일로 합침</u>
 	- S3 Transfer acceleration(가속화)
 		- 미국에 있는 파일을 호주 S3에 업로드 할 때 미국에 있는 `엣지 로케이션`을  이용해 빠르게 업로드 후 호주 S3 버킷에 올릴 수 있음(private 네트워크를 이용) -> 전송 가속화
 		- 퍼블릭을 최소화 프라이빗을 최대한 사용
@@ -56,7 +56,7 @@
 ### Batch Operations
 - 대량 작업 수행
 - 한 번에 많은 S3 객체의 메타데이터와 프로퍼티를 수정할 수 있고, 배치 작업으로 S3 버킷 간에 객체를 복사할 수 있음
-- **S3 버킷 내 암호화되지 않은 모든 객체를 암호화 할 수 있음** 
+- <u>S3 버킷 내 암호화되지 않은 모든 객체를 암호화 할 수 있음</u>
 - ACLs, tags 변경 가능, Glacier에서 한 번에 많은 객체를 복원할 수 있음
 - 작업은 객체의 목록, 수행할 작업 옵션 매개 변수로 구성됨
 - 재시도를 관리할 수 있고, 진행 상황을 추적 가능, 보고서 생성 기능 등이 제공됨
