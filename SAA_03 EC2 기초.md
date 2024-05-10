@@ -1,4 +1,4 @@
-### AWS 예산 설정
+;/### AWS 예산 설정
 - 계정의 bill에서 설정
 ### EC2
 - 서비스형 인프라 스트럭처
@@ -134,7 +134,7 @@ EC2 Instance Connect는 웹 브라우저로 EC2 인스턴스 연결
 	- 단기적이고 중단 없는 워크로드에 적합
 ### 스팟 인스턴스 및 스팟 집합
 - 온디맨드보다  저렴
-- `max spot price` 설정, currnet spot price < max spot price 가 되면 인스턴스 유지
+- `max spot price` 설정, current spot price < max spot price 가 되면 인스턴스 유지
 - 시간당 스팟
 	- 용량이 넘어가면 2분의 유예기간 뒤 인스턴스 중지
 - 스팟 블록
